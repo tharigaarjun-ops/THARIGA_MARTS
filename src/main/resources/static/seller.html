@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Seller dashboard - THARIGA MART.">
+  <title>Seller Dashboard | THARIGA MART</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%234f46e5'/%3E%3Ctext x='50' y='72' font-size='62' text-anchor='middle' fill='%23f59e0b' font-family='Arial' font-weight='bold'%3EA%3C/text%3E%3C/svg%3E">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg am-navbar sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="/index.html">
+      <span class="brand-mark">A</span>
+      <span class="brand-text">THARIGA <b>MART</b></span>
+    </a>
+    <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" data-nav="index.html" href="/index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" data-nav="products.html" href="/products.html">Shop</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+          <ul class="dropdown-menu" id="navCategoryMenu">
+            <li><a class="dropdown-item" href="/products.html">All Stationery</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" data-nav="orders.html" href="/orders.html">My Orders</a></li>
+      </ul>
+      <form class="d-flex nav-search" id="navSearchForm" role="search">
+        <input class="form-control" id="navSearchInput" type="search" placeholder="Search stationery…" aria-label="Search">
+        <button class="btn" type="submit" aria-label="Search"><i class="bi bi-search"></i></button>
+      </form>
+      <div class="nav-actions">
+        <a href="/cart.html" class="cart-link" aria-label="Cart"><i class="bi bi-cart3"></i><span class="cart-badge" id="cartBadge">0</span></a>
+        <div id="authGuest" class="d-flex gap-2">
+          <a href="/login.html" class="btn btn-sm btn-outline-light">Login</a>
+          <a href="/register.html" class="btn btn-sm btn-accent">Sign Up</a>
+        </div>
+        <div id="authUser" class="dropdown d-none">
+          <button class="btn btn-light dropdown-toggle user-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="user-avatar" id="userAvatar">U</span><span id="userName">User</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><span class="dropdown-item-text small text-muted" id="userEmail">-</span></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/account.html"><i class="bi bi-person me-2"></i>My Account</a></li>
+            <li><a class="dropdown-item" href="/orders.html"><i class="bi bi-box-seam me-2"></i>Order History</a></li>
+            <li><a class="dropdown-item" href="/cart.html"><i class="bi bi-cart3 me-2"></i>Cart</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><button class="dropdown-item text-danger" id="logoutBtn"><i class="bi bi-box-arrow-right me-2"></i>Logout</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="section">
+  <div class="container">
+    <div class="mb-3 breadcrumb-am">
+      <a href="/index.html">Home</a> <span class="mx-1">/</span> <span>Seller Dashboard</span>
+    </div>
+
+    <div class="section-head">
+      <div>
+        <h2>Seller Dashboard</h2>
+        <p class="sub">Manage your store, listings and sales</p>
+      </div>
+      <button class="btn btn-primary-am btn-sm px-3" id="listProductBtn" type="button">
+        <i class="bi bi-plus-lg me-1"></i>List a product</button>
+    </div>
+
+    <div class="alert alert-warning d-none" id="sellerNotice">
+      <i class="bi bi-exclamation-triangle me-2"></i>
+      This page is for seller accounts. <a href="/login.html">Log in</a> with a seller account to manage listings.
+    </div>
+
+    <!-- Stats -->
+    <div class="row g-3 mb-4" id="statsRow">
+      <div class="col-6 col-md-3">
+        <div class="panel text-center py-3">
+          <div class="fs-4 fw-bold text-primary" id="statProducts">-</div>
+          <div class="small text-muted">My products</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="panel text-center py-3">
+          <div class="fs-4 fw-bold text-primary" id="statOrders">-</div>
+          <div class="small text-muted">Orders received</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="panel text-center py-3">
+          <div class="fs-4 fw-bold text-primary" id="statUnits">-</div>
+          <div class="small text-muted">Units sold</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="panel text-center py-3">
+          <div class="fs-4 fw-bold text-primary" id="statRevenue">-</div>
+          <div class="small text-muted">Sales revenue</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <!-- Store profile -->
+      <div class="col-lg-4">
+        <div class="panel">
+          <h5><i class="bi bi-shop me-2 text-primary"></i>Store profile</h5>
+          <div id="profileStatus" class="mb-3"></div>
+          <form id="sellerProfileForm" novalidate>
+            <div class="mb-3">
+              <label class="form-label" for="storeName">Store name *</label>
+              <input class="form-control" id="storeName" name="storeName" type="text" maxlength="120">
+              <div class="field-error" data-error-for="storeName"></div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="storeDescription">Description</label>
+              <textarea class="form-control" id="storeDescription" name="storeDescription" rows="3" maxlength="1000"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="businessAddress">Business address</label>
+              <textarea class="form-control" id="businessAddress" name="businessAddress" rows="2" maxlength="255"></textarea>
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="gstin">GSTIN (optional)</label>
+              <input class="form-control" id="gstin" name="gstin" type="text" maxlength="15"
+                     placeholder="22AAAAA0000A1Z5">
+            </div>
+            <button class="btn btn-primary-am w-100" type="submit" id="saveProfileBtn">
+              <i class="bi bi-check2-circle me-1"></i>Save profile</button>
+          </form>
+        </div>
+
+        <div class="panel mt-4">
+          <h5><i class="bi bi-truck me-2 text-primary"></i>Orders containing your items</h5>
+          <div id="sellerOrders" class="page-loading">
+            <div class="spinner-border text-primary" role="status"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products -->
+      <div class="col-lg-8">
+        <div class="panel">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0"><i class="bi bi-box-seam me-2 text-primary"></i>My products</h5>
+            <button class="btn btn-sm btn-outline-primary" id="refreshProductsBtn" type="button">
+              <i class="bi bi-arrow-clockwise me-1"></i>Refresh</button>
+          </div>
+          <div id="sellerProducts" class="page-loading">
+            <div class="spinner-border text-primary" role="status"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product form (create / edit) -->
+    <div class="panel d-none mt-4" id="productFormPanel">
+      <h5 id="productFormTitle"><i class="bi bi-box-seam me-2 text-primary"></i>List a product</h5>
+      <form id="productForm" novalidate>
+        <input type="hidden" id="productId">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label" for="pTitle">Product name *</label>
+            <input class="form-control" id="pTitle" name="name" type="text" maxlength="160">
+            <div class="field-error" data-error-for="name"></div>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label" for="pSku">SKU</label>
+            <input class="form-control" id="pSku" name="sku" type="text" maxlength="40">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label" for="pBrand">Brand</label>
+            <input class="form-control" id="pBrand" name="brand" type="text" maxlength="60">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label" for="pCategory">Category *</label>
+            <select class="form-select" id="pCategory" name="categoryId"></select>
+            <div class="field-error" data-error-for="categoryId"></div>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label" for="pPrice">Price (₹) *</label>
+            <input class="form-control" id="pPrice" name="price" type="number" min="1" step="0.01">
+            <div class="field-error" data-error-for="price"></div>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label" for="pMrp">MRP (₹)</label>
+            <input class="form-control" id="pMrp" name="mrp" type="number" min="0" step="0.01">
+          </div>
+          <div class="col-md-2">
+            <label class="form-label" for="pStock">Stock *</label>
+            <input class="form-control" id="pStock" name="stock" type="number" min="0" max="99999">
+            <div class="field-error" data-error-for="stock"></div>
+          </div>
+          <div class="col-md-2">
+            <label class="form-label" for="pDiscount">Discount %</label>
+            <input class="form-control" id="pDiscount" name="discountPercent" type="number" min="0" max="99">
+          </div>
+          <div class="col-md-2">
+            <label class="form-label" for="pImage">Image URL</label>
+            <input class="form-control" id="pImage" name="image" type="text" maxlength="500"
+                   placeholder="/images/stationery/…">
+          </div>
+          <div class="col-12">
+            <label class="form-label" for="pDescription">Description *</label>
+            <textarea class="form-control" id="pDescription" name="description" rows="3" maxlength="2000"></textarea>
+            <div class="field-error" data-error-for="description"></div>
+          </div>
+          <div class="col-12">
+            <div class="form-check form-switch">
+              <input class="form-check-input" id="pActive" name="active" type="checkbox" checked>
+              <label class="form-check-label" for="pActive">Active (visible in the shop)</label>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex gap-2 mt-3">
+          <button class="btn btn-primary-am" type="submit" id="saveProductBtn">
+            <i class="bi bi-check2-circle me-1"></i>Save product</button>
+          <button class="btn btn-outline-secondary" type="button" id="cancelProductBtn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer class="am-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4 col-sm-6">
+        <a class="navbar-brand mb-2 d-inline-flex" href="/index.html">
+          <span class="brand-mark">A</span>
+          <span class="brand-text">THARIGA <b>MART</b></span>
+        </a>
+        <p>Smart Shopping. Easy Buying. Everything You Need.</p>
+      </div>
+      <div class="col-md-2 col-sm-6">
+        <h6>Quick Links</h6>
+        <a href="/index.html">Home</a>
+        <a href="/products.html">Shop</a>
+        <a href="/account.html">My Account</a>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <h6>Customer Care</h6>
+        <p class="mt-2 mb-1"><i class="bi bi-envelope me-2"></i>support@tharigamart.com</p>
+        <p class="mb-0"><i class="bi bi-telephone me-2"></i>+91 98765 43210</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 THARIGA MART. All rights reserved.</span>
+      <span>Smart Shopping. Easy Buying. Everything You Need.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/navbar.js"></script>
+<script src="/js/seller.js"></script>
+</body>
+</html>
